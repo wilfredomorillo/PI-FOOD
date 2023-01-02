@@ -51,6 +51,7 @@ const dataApi= await infoApi()
 const database= await InfoDB()
 const lasdos= dataApi.concap(database)
 return lasdos
+
 }
 const searcQuery= async(name)=>{
 const infoSearh= await axios.get(`https://api.spoonacular.com/recipes/complexSearch/${name}`)
@@ -117,15 +118,10 @@ return await Recipe.findByPk({
 }
 
 
-const TodoIds= async(id)=>{
-
-    const Idap= await ApiId(id)
-    const Idbds= await IdDB(id)
-
-}
 
 
-module.export ={
+
+module.exports={
     infoApi,
     InfoDB,
     infoApiDB,
