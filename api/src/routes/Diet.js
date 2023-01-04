@@ -1,36 +1,36 @@
 const {Router} = require ('express')
 const {Diet}= require ('../db')
-const {axios}= require ('axios')
-
-const {apikey}= process.env
-
-
 
 const router= Router()
 
 
 router.get('/', async(req , res)=>{
-    try{
-const infoDiet= await axios.get(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${apikey}&addRecipeInformation=true&number=100`)
 
-const tipos= infoDiet.data?.results.map((e)=>e.diets)
-const newtipes= tipos.flat().concat('vegetarian', 'ketogenic')
-const tipofinal= [...new Set(newtipes)]
-
-for (let element in tipofinal) {
-   Diet.findOrCreate({
-    where:{
-        title:tipofinal[element]
-    }
-   })
+const listDiets=[
+    "gluten free",
+    "dairy free",
+    "ketogenic",
+    "lacto ovo vegetarian",
+    "vegan",
+    "pescatarian",
+    "paleolithic",
+    "primal",
+    "fodmap friendly",
+    "whole 30",
+]
+try{
+    listDiets.forEach((e)=>{
+        Diet.findOrCreate({
+            where:{name:e}
+        })
+    })
+    const all= await Diet.findAll()
+    res.status(200).send(all)
 }
-const newDiets = await Diet.findAll();
-    res.status(200).json(newDiets);
+catch(error){
+    res.status(404).send('dieta no encontrada')
 }
-catch(e){
-    console.log(e)
-}})
-
+})
 
 
 module.exports= router;
