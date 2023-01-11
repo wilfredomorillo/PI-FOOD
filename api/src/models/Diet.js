@@ -8,25 +8,8 @@ module.exports = (sequelize) => {
         primaryKey:true 
         },
         name: {
-            type: DataTypes.STRING,
-            allowNull: false,
-            validate: {
-              isIn: [
-                [
-                  "gluten free",
-                  "dairy free",
-                  "ketogenic",
-                  "lacto ovo vegetarian",
-                  "vegan",
-                  "pescatarian",
-                  "paleolithic",
-                  "primal",
-                  "fodmap friendly",
-                  "whole 30",
-                ],
-              ],
-            }
-          },
+        type: DataTypes.STRING,
+        }
     },{
         timestamps: false
     });
