@@ -57,8 +57,8 @@ const DBrecipesID = async function (id) {
 }
 
 const ALLRecipes = async function () {
-    const APIrecipes = await APIrecipes() 
-    const DBrecipes = await DBrecipes()
+    const APIrecipes = await DBrecipes () 
+    const DBrecipes = await APIrecipes ()
     let recipes=[]
     if (APIrecipes) recipes=recipes.concat(APIrecipes)
     if (DBrecipes) recipes=recipes.concat(DBrecipes)
