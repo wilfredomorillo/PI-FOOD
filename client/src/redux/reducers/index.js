@@ -10,8 +10,7 @@ import {
   ERROR_MSSG,
   NOT_FOUND,
   CHANGE_MSG,
-  PUT_RECIPE,
-  DELETE_RECIPE,
+  
 } from "../actions/index.js";
 
 const initialState = {
@@ -132,17 +131,7 @@ const rootReducer = (state = initialState, action) => {
         createMsg: action.payload,
       };
     }
-    case PUT_RECIPE: {
-      return {
-        ...state,
-        recipeChangedMsg: action.payload,
-      };
-    }
-    case DELETE_RECIPE: {
-      return {
-        ...state,
-      };
-    }
+    
     default:
       return state;
   }

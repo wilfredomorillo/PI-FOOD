@@ -87,24 +87,5 @@ export function orderByScore(payload) {
   };
 }
 
-export const putRecipeById = (id, putt) => {
-  return async function (dispatch) {
-    try {
-      const putRecipe = await axios.put(`/recipes/put/${id}`, putt);
-      return dispatch({ type: PUT_RECIPE, payload: putRecipe.data });
-    } catch (error) {
-      return dispatch({ type: CHANGE_MSG, payload: error.response.data });
-    }
-  };
-};
 
-export const deleteRecipeById = (id) => {
-  return async function (dispatch) {
-    try {
-      const deleteRecipe = await axios.delete(`/recipes/delete/${id}`);
-      return dispatch({ type: DELETE_RECIPE, payload: deleteRecipe.data });
-    } catch (error) {
-      return dispatch({ type: CHANGE_MSG, payload: error.response.data });
-    }
-  };
-};
+

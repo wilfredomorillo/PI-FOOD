@@ -4,7 +4,7 @@ import CreateRecipe from "./components/CreateRecipe/CreateRecipe";
 import About from "./components/About/About";
 import RecipeDetail from "./components/RecipeDetails/RecipeDetail";
 import LandingPage from "./components/LandingPage/LandingPage";
-import PutRecipe from "./components/Prueba/Error/PutRecipe";
+
 import "./App.css";
 
 function App() {
@@ -18,7 +18,7 @@ function App() {
         <Route exact path="/recipe/:id" component={RecipeDetail} />
         <Route path="/create/recipe" component={CreateRecipe} />
         <Route exact path="/about" component={About} />
-        <Route exact path="/put/recipe/:id" component={PutRecipe} />
+      
       </div>
     </>
   );
