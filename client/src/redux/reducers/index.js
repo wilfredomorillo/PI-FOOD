@@ -10,6 +10,10 @@ import {
   ERROR_MSSG,
   NOT_FOUND,
   CHANGE_MSG,
+  DELETE_RECETES,
+  CLEANER,
+  CLEAN,
+
   
 } from "../actions/index.js";
 
@@ -131,10 +135,22 @@ const rootReducer = (state = initialState, action) => {
         createMsg: action.payload,
       };
     }
-    
+    case DELETE_RECETES:{
+      return { ...state }
+    }
+    case CLEAN:
+      return { ...state, loader: true }
+
+  case CLEANER: {
+      return {
+          ...state,
+          videogame: {}
+      }}
+      
     default:
       return state;
   }
+  
 };
 
 export default rootReducer;

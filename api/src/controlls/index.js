@@ -23,22 +23,27 @@ const APIrecipes = async function () {
                 }
             })
         }
-    })
+        }) 
     return washed 
 }
 
 const DBrecipes = async function () {
     let recipes = await Recipe.findAll({
-        include: {
+        include: [{
             model: Diet,
             attributes: ['name'],
             through: {
                 attributes: [],
             }
-        }})
+        }]})
     return recipes
 }
-
+const ALLRecipes = async function () {
+    const DBrecipe = await DBrecipes() 
+    const  APIrecipe= await APIrecipes()
+ const todaInfo= DBrecipe.concat(APIrecipe)
+ return todaInfo
+}
 const APIrecipesID = async function (idRecipe) {
     return await axios.get(`https://api.spoonacular.com/recipes/${parseInt(idRecipe)}/information?apiKey=${API_KEY}`)
 }
@@ -56,14 +61,6 @@ const DBrecipesID = async function (id) {
     return recipe
 }
 
-const ALLRecipes = async function () {
-    const APIrecipes = await DBrecipes () 
-    const DBrecipes = await APIrecipes ()
-    let recipes=[]
-    if (APIrecipes) recipes=recipes.concat(APIrecipes)
-    if (DBrecipes) recipes=recipes.concat(DBrecipes)
-    return recipes
-}
 
 module.exports = {
     APIrecipes,

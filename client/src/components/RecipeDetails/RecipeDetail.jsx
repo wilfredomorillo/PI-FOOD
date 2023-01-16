@@ -1,10 +1,11 @@
 import React from "react";
 import Navbar from "../Navbar/Navbar";
-import { Link } from "react-router-dom/cjs/react-router-dom";
-import * as actions from "../../redux/actions/index";
+import { Link } from "react-router-dom";
+import {getAllRecipesById,clean,deletes, cleaner} from "../../redux/actions/index";
 import "./RecipeDetail.css";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+
 
 function RecipeDetail(props) {
   let { id } = useParams();
@@ -12,9 +13,24 @@ function RecipeDetail(props) {
   let detail = useSelector((state) => state.recipeDetail);
   let msg = useSelector((state) => state.errorMsg);
   React.useEffect(() => {
-    dispatch(actions.getAllRecipesById(id));
+    dispatch(getAllRecipesById(id));
   }, [dispatch, id]);
 
+  function handleDelete(e){
+    const ID = id.includes('-')
+    if(ID){
+    e.preventDefault()
+    dispatch(clean())
+    dispatch (deletes(id))
+    dispatch(cleaner())
+    alert('comida borrada')
+    
+    
+    }else{
+        alert('solo puedes eliminar comida')
+    }
+    
+    }
   return (
     <>
       <Navbar />
@@ -22,38 +38,33 @@ function RecipeDetail(props) {
         <Link to="/home">
           <button className="custom-button">Back Home</button>
         </Link>
-        {detail.length > 0 ? (
-          Object.keys(detail).length > 0 && (
-            <div key={detail[0].id} className="main">
-              <h1>{detail[0].name} </h1>
-              <div className="img-content">
-                <img src={detail[0].image} alt="food" />
-              </div>
-              <h3>Health Score: {detail[0].healthScore}</h3>
-              <h3>Type of Diets</h3>
+        
+        <h1 className="name">{detail.name}</h1>
+        <ul>
+          <li>
+            <div>
+              <img src={detail.image} alt={detail.name} className= "img-content" />
+            </div>
+          </li>
+          <h3>Health Score:{detail.healthScore}</h3>
+          <h3>Type of Diets</h3>
               <p>
-                {detail[0].diets ? detail[0].diets + "," : detail[0].types}{" "}
+                {detail.diets ? detail.diets + "," : detail.types}{" "}
               </p>
               <h3>Summary:</h3>
-              <p>{detail[0].summary}</p>
+              <p>{detail.summary}</p>
               <h3>Steps:</h3>
               <p>
                 {`${
-                  detail[0].steps
-                    ? detail[0].steps
+                  detail.steps
+                    ? detail.steps
                     : "Does not have step to do it :("
                 }`}{" "}
               </p>
-              <Link to={`/put/recipe/${detail[0].id}`}>
-                <button className="custom-button">Want to change?</button>
+              
+        </ul><Link to='/home'>
+        <button onClick={(e)=>handleDelete(e)} className= "custom-button"><span>Eliminar</span></button>
               </Link>
-            </div>
-          )
-        ) : !detail.length ? (
-          <p>{msg}</p>
-        ) : (
-          <></>
-        )}
       </div>
     </>
   );

@@ -13,21 +13,21 @@ export const NOT_FOUND = "NOT_FOUND";
 export const CHANGE_MSG = "CHANGE_MSG";
 export const DELETE_RECIPE = "DELETE_RECIPE";
 export const PUT_RECIPE = "PUT_RECIPE";
-
+export const DELETE_RECETES= "DELETE_RECETES"
+export const CLEAN="CLEAN"
+export const CLEANER= 'CLEANER'
 export const getAllRecipes = () => {
   return async function (dispatch) {
-    let recipes = await axios.get("/recipes");
+    let recipes = await axios.get("/recipes/");
     return dispatch({ type: GET_ALL_RECIPES, payload: recipes.data });
   };
 };
 export const getAllRecipesById = (id) => {
   return async function (dispatch) {
-    if (id === "") {
-      return dispatch({ type: NOT_FOUND });
-    }
+    
     try {
-      let recipeById = await axios.get(`/recipes/${id}`);
-      return dispatch({ type: GET_RECIPE_BY_ID, payload: recipeById.data });
+     const {data} = await axios.get(`/recipes/${id}`);
+      return dispatch({ type: GET_RECIPE_BY_ID, payload: data });
     } catch (error) {
       return dispatch({ type: NOT_FOUND, payload: error.response.data });
     }
@@ -58,7 +58,7 @@ export const getDiets = () => {
 export const createRecipe = (recipe) => {
   return async function (dispatch) {
     try {
-      const createRecipe = await axios.post("/recipes", recipe);
+      const createRecipe = await axios.post("/recipes",recipe);
       return dispatch({ type: CREATE_RECIPE, payload: createRecipe.data });
     } catch (error) {
       return dispatch({ type: CHANGE_MSG, payload: error.response.data });
@@ -87,5 +87,31 @@ export function orderByScore(payload) {
   };
 }
 
+export function deletes(id){
+  return async function(dispatch){
+      try{
+          const deletes= await axios.delete (`/recipes/${id}`)
+          return dispatch({
+              type: 'DELETE_RECETES',
+              payload: deletes
+          })
+      
+      }catch (err){
+          console.error(err)
+      }
+  }
+}
 
+export function clean() {
+  return {
+      type: 'CLEAN',
+      payload: {},
+  };
+}
 
+export function cleaner() {
+  return {
+      type: 'CLEANER',
+      payload: {},
+  };
+}

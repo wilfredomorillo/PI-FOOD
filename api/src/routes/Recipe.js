@@ -1,7 +1,7 @@
 const { Router } = require('express');
 require('dotenv').config();
 const {Recipe,Diet} = require('../db');
-const { APIrecipes,DBrecipesID,APIrecipesID } = require('../controlls/index');
+const {DBrecipesID,APIrecipesID, ALLRecipes } = require('../controlls/index');
 
 
 const router = Router();
@@ -9,7 +9,7 @@ const router = Router();
 router.get('/',async (req, res) => {
     try {
       let { name } = req.query;
-      const recipes = await APIrecipes();
+      const recipes = await ALLRecipes();
       if (name) {
         let filtered = recipes.filter(e => e.name.toLowerCase().includes(name.toString().toLowerCase()));
         if (filtered.length) {
@@ -87,26 +87,43 @@ router.get('/:idRecipe', async (req, res) => {
 
 
 
-router.post('/recipes', async  (req,res) => {
-  try {
-      const {name,summary,healthScore,steps,diets,image} = req.body
-      const newRecipe = await Recipe.create({
-          name,
-          summary,
-          healthScore,
-          steps,
-          image
-      })
-      let dietTypes = await Diet.findAll({
-          where: { name: diets} 
-      })
-      await newRecipe.addDiet(dietTypes)
-      return res.send(newRecipe)
-  } catch (error) {
-      return res.status(400).send(error.message)
-  }
-})
+  router.post('/', async  (req,res, next) => {
+    try{
+        const {name,summary,healthScore,steps,image, diet }= req.body;
+        const NewReceta= await Recipe.create({
+            name,
+            summary,
+            image,
+            steps, 
+            healthScore,
+            diet,
+        }) 
+        const TypesDiets=  await Diet.findAll({
+            where: {name:name}
+        })
+        NewReceta.addDiet(TypesDiets)
+    
+    res.send(NewReceta) 
+    }catch(error){next (error)}
+    });
+    
+    
+    
+    router.delete('/:id', async (req, res)=>{
 
+      const {id}= req.params
+      try{
+  if (id){
+      await Recipe.destroy({
+          where: {id:id}
+      })
+      res.json({msg:'comida borrada'})
+  }
+  
+  
+      }catch(error)
+      { console.log(error)}
+  })
 
 module.exports = router;
 
