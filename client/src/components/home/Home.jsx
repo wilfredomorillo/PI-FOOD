@@ -3,7 +3,7 @@ import MenuCard from "../MenuCard/MenuCard";
 import Filters from "../Filters/Filters.jsx";
 import SearchBar from "../SearchBar/SearchBar";
 import Navbar from "../Navbar/Navbar";
-import Loader from "../Loader/Loader";
+import Loader from "../loader/Loader";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllRecipes, getDiets } from "../../redux/actions/index";
 import "./Home.css";
@@ -31,7 +31,10 @@ function Home() {
     dispatch(getAllRecipes());
     dispatch(getDiets());
   }, [dispatch]);
+if (order){
+  return <Loader/>
 
+}
   return (
     <>
       <Navbar />

@@ -1,19 +1,13 @@
 import React from "react";
-import "./Loader.css"
+import loading from "../../imagenes/Loading_icon.gif"
 
-function Loader() {
-  return (
-    <div class="loader">
-      <ul>
-        <li></li>
-        <li></li>
-        <li></li>
-      </ul>
-      <div class="cup">
-        <span></span>
-      </div>
-    </div>
-  );
+
+
+export default function Loader() {
+    return (
+        <div>
+             <img src={loading} />
+        </div>
+    )
+    
 }
-
-export default Loader;

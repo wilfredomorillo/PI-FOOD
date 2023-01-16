@@ -26,9 +26,7 @@ function Navbar() {
         <a href="/createrecipe" className="color-specified">
           <Link to="/create/recipe">Create Recipe</Link>
         </a>
-        <a href="/about" className="color-specified">
-          <Link to="/about">About</Link>
-        </a>
+        
       </div>
       <div
         className={`nav-toggle ${open && "open"}`}

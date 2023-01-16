@@ -11,7 +11,6 @@ function RecipeDetail(props) {
   let { id } = useParams();
   let dispatch = useDispatch();
   let detail = useSelector((state) => state.recipeDetail);
-  let msg = useSelector((state) => state.errorMsg);
   React.useEffect(() => {
     dispatch(getAllRecipesById(id));
   }, [dispatch, id]);
