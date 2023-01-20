@@ -1,4 +1,4 @@
-import React from "react";
+import {React , useEffect} from "react";
 import Navbar from "../Navbar/Navbar";
 import { Link } from "react-router-dom";
 import {getAllRecipesById,clean,deletes, cleaner} from "../../redux/actions/index";
@@ -11,7 +11,7 @@ function RecipeDetail(props) {
   let { id } = useParams();
   let dispatch = useDispatch();
   let detail = useSelector((state) => state.recipeDetail);
-  React.useEffect(() => {
+  useEffect(() => {
     dispatch(getAllRecipesById(id));
   }, [dispatch, id]);
 
@@ -26,7 +26,7 @@ function RecipeDetail(props) {
     
     
     }else{
-        alert('solo puedes eliminar comida')
+        alert('solo puedes eliminar tu comida')
     }
     
     }

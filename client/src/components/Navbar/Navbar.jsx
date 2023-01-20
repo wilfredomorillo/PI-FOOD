@@ -17,8 +17,7 @@ function Navbar() {
         </Link>
         <span className="nav-logo">Recetas y Dietas</span>
       </div>
-      <div className="social-logo">
-      </div>
+     
       <div className={`nav-items ${open && "open"}`}>
         <a href="/home" className="color-specified">
           <Link to="/home">Home</Link>

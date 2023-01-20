@@ -31,10 +31,7 @@ function Home() {
     dispatch(getAllRecipes());
     dispatch(getDiets());
   }, [dispatch]);
-if (order){
-  return <Loader/>
 
-}
   return (
     <>
       <Navbar />
