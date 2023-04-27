@@ -3,7 +3,7 @@ import MenuCard from "../MenuCard/MenuCard";
 import Filters from "../Filters/Filters.jsx";
 import SearchBar from "../SearchBar/SearchBar";
 import Navbar from "../Navbar/Navbar";
-import Loader from "../loader/Loader";
+import Loader from "../Loader/Loader";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllRecipes, getDiets } from "../../redux/actions/index";
 import "./Home.css";
